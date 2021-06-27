@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepositorioPassageirosImplMem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">trabalho_final</a> &gt; <a href="index.source.html" class="el_package">com.csvop.interfaces.Persistencia</a> &gt; <span class="el_source">RepositorioPassageirosImplMem.java</span></div><h1>RepositorioPassageirosImplMem.java</h1><pre class="source lang-java linenums">package com.csvop.interfaces.Persistencia;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.csvop.casosDeUso.Repositorios.RepositorioPassageiros;
+import com.csvop.entidades.Passageiro;
+
+public class RepositorioPassageirosImplMem implements RepositorioPassageiros {
+    private Map&lt;String, Passageiro&gt; passageiros;
+
+<span class="nc" id="L14">    public RepositorioPassageirosImplMem() {</span>
+<span class="nc" id="L15">        passageiros = new HashMap&lt;&gt;();</span>
+
+<span class="nc" id="L17">        passageiros.put(&quot;123456789&quot;, Passageiro.novoPassageiro(&quot;123456789&quot;, &quot;Ze&quot;));</span>
+<span class="nc" id="L18">        passageiros.put(&quot;123456798&quot;, Passageiro.novoPassageiro(&quot;123456798&quot;, &quot;Prima do Ze&quot;));</span>
+<span class="nc" id="L19">        passageiros.put(&quot;123457689&quot;, Passageiro.novoPassageiro(&quot;123457689&quot;, &quot;Irmao do Ze&quot;));</span>
+<span class="nc" id="L20">        passageiros.put(&quot;123546789&quot;, Passageiro.novoPassageiro(&quot;123546789&quot;, &quot;Amiga do Ze&quot;));</span>
+<span class="nc" id="L21">    }</span>
+
+    @Override
+    public Passageiro recuperaPorCPF(String cpf) {
+<span class="nc" id="L25">        return passageiros.get(cpf);</span>
+    }
+
+    @Override
+    public void atualizaPassageiro(Passageiro passageiro) {
+<span class="nc" id="L30">        passageiros.put(passageiro.getCPF(), passageiro);</span>
+<span class="nc" id="L31">    }</span>
+
+    @Override
+    public List&lt;Passageiro&gt; listaPassageiros() {
+<span class="nc" id="L35">        List&lt;Passageiro&gt; lst = new ArrayList&lt;&gt;(passageiros.values());</span>
+<span class="nc" id="L36">        return lst;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

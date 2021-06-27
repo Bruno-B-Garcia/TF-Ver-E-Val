@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Area.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">trabalho_final</a> &gt; <a href="index.source.html" class="el_package">com.csvop.entidades.geometria</a> &gt; <span class="el_source">Area.java</span></div><h1>Area.java</h1><pre class="source lang-java linenums">package com.csvop.entidades.geometria;
+
+public class Area {
+    private Ponto pSupEsq, pInfDir;
+
+<span class="fc" id="L6">    public Area(Ponto pSupEsq, Ponto pInfDir) {</span>
+<span class="pc bpc" id="L7" title="2 of 4 branches missed.">        if ((pSupEsq.getX() &gt;= pInfDir.getX()) || (pSupEsq.getY() &lt;= pInfDir.getY())) {</span>
+<span class="nc" id="L8">            throw new IllegalArgumentException(&quot;O retangulo deve ser definido pela diagonal principal&quot;);</span>
+        } else {
+<span class="fc" id="L10">            this.pSupEsq = pSupEsq;</span>
+<span class="fc" id="L11">            this.pInfDir = pInfDir;</span>
+        }
+<span class="fc" id="L13">    }</span>
+
+    public Ponto getPSupEsq() {
+<span class="fc" id="L16">        return pSupEsq;</span>
+    }
+
+    public Ponto getPInfDir() {
+<span class="fc" id="L20">        return pInfDir;</span>
+    }
+
+    public Ponto pontoCentral(){
+<span class="fc" id="L24">        int x = getPSupEsq().getX()+(Math.abs(getPInfDir().getX() - getPSupEsq().getX())/2);</span>
+<span class="fc" id="L25">        int y = getPInfDir().getY()+(Math.abs(getPInfDir().getY() - getPSupEsq().getY())/2);</span>
+<span class="fc" id="L26">        return new Ponto(x,y);</span>
+    }
+
+    public byte codificaPonto(Ponto p) {
+<span class="fc" id="L30">        byte cod = 0;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (p.getY() &gt; getPSupEsq().getY()) { // Ponto acima da area</span>
+<span class="fc" id="L32">            cod = (byte) 1;</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        } else if (p.getY() &lt; getPInfDir().getY()) { // Ponto abaixo da area</span>
+<span class="fc" id="L34">            cod = (byte) 2;</span>
+        }
+
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (p.getX() &gt; getPInfDir().getX()) { // Ponto a direita da area</span>
+<span class="fc" id="L38">            cod += (byte) 4;</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        } else if (p.getX() &lt; getPSupEsq().getX()) { // Ponto a esquerda da area</span>
+<span class="fc" id="L40">            cod += (byte) 8;</span>
+        }
+<span class="fc" id="L42">        return cod;</span>
+    }
+
+    public SituacaoReta classifica(Reta reta) {
+<span class="fc" id="L46">        byte cod1 = codificaPonto(reta.getP1());</span>
+<span class="fc" id="L47">        byte cod2 = codificaPonto(reta.getP2());</span>
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if ((cod1 | cod2) == 0) {</span>
+<span class="fc" id="L50">            return SituacaoReta.TODA_DENTRO;</span>
+        } else {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            for (byte val = 1; val &lt;= 8; val *= 2) {</span>
+<span class="fc bfc" id="L53" title="All 4 branches covered.">                if ((cod1 &amp; val) == val &amp;&amp; (cod2 &amp; val) == val) {</span>
+<span class="fc" id="L54">                    return SituacaoReta.TODA_FORA;</span>
+                }
+            }
+<span class="fc" id="L57">            return SituacaoReta.INTERSECTA;</span>
+        }
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L63">        return &quot;Area [pInfDir=&quot; + pInfDir + &quot;, pSupEsq=&quot; + pSupEsq + &quot;]&quot;;</span>
+    }
+
+    @Override
+    public boolean equals(Object outro){
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if (outro instanceof Area){</span>
+<span class="fc" id="L69">            Area outra = (Area)outro;</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">            return ((pSupEsq.equals(outra.pSupEsq)) &amp;&amp; </span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">                    (pInfDir.equals(outra.pInfDir)));</span>
+        }else{
+<span class="nc" id="L73">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

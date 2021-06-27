@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ServicosPassageiro.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">trabalho_final</a> &gt; <a href="index.source.html" class="el_package">com.csvop.casosDeUso.Servicos</a> &gt; <span class="el_source">ServicosPassageiro.java</span></div><h1>ServicosPassageiro.java</h1><pre class="source lang-java linenums">package com.csvop.casosDeUso.Servicos;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.csvop.casosDeUso.Politicas.CustoViagem;
+import com.csvop.casosDeUso.Politicas.CalculoCustoViagem;
+import com.csvop.casosDeUso.Repositorios.RepositorioBairros;
+import com.csvop.casosDeUso.Repositorios.RepositorioPassageiros;
+import com.csvop.entidades.Bairro;
+import com.csvop.entidades.Passageiro;
+import com.csvop.entidades.Roteiro;
+import com.csvop.entidades.Viagem;
+
+public class ServicosPassageiro {
+    private RepositorioBairros repBairros;
+    private RepositorioPassageiros repPassageiros;
+    private CustoViagem custoViagem;
+
+    public ServicosPassageiro(RepositorioBairros repBairros, RepositorioPassageiros repPassageiros,
+<span class="fc" id="L23">            CalculoCustoViagem ccv) {</span>
+<span class="fc" id="L24">        this.repBairros = repBairros;</span>
+<span class="fc" id="L25">        this.repPassageiros = repPassageiros;</span>
+<span class="fc" id="L26">        this.custoViagem = new CustoViagem(ccv);</span>
+<span class="fc" id="L27">    }</span>
+
+    public List&lt;Object&gt; getListaBairros(){
+<span class="fc" id="L30">        return repBairros.recuperaListaBairros()</span>
+<span class="fc" id="L31">                .stream()</span>
+<span class="fc" id="L32">                .map(b-&gt;b.getNome())</span>
+<span class="fc" id="L33">                .collect(Collectors.toList());</span>
+    }
+
+    public List&lt;Object&gt; getPassageirosCadastrados(){
+<span class="fc" id="L37">        return repPassageiros.listaPassageiros()</span>
+<span class="fc" id="L38">                .stream()</span>
+<span class="fc" id="L39">                .map(p-&gt;p.getNome())</span>
+<span class="fc" id="L40">                .collect(Collectors.toList());</span>
+    }
+
+    public Roteiro criaRoteiro(String bairroOrigem,String bairroDestino){
+<span class="fc" id="L44">        Collection&lt;Bairro&gt; todosBairros = repBairros.recuperaListaBairros();</span>
+<span class="fc" id="L45">        Bairro bOrigem = repBairros.recuperaPorNome(bairroOrigem);</span>
+<span class="fc" id="L46">        Bairro bDestino = repBairros.recuperaPorNome(bairroDestino);</span>
+<span class="fc" id="L47">        return new Roteiro(bOrigem,bDestino,todosBairros);</span>
+    }
+
+    public Viagem criaViagem(int id,Roteiro roteiro,String cpfPassageiro){
+<span class="fc" id="L51">        LocalDateTime data = LocalDateTime.now();</span>
+<span class="fc" id="L52">        Passageiro passageiro = repPassageiros.recuperaPorCPF(cpfPassageiro);</span>
+<span class="fc" id="L53">        double valorCobrado = custoViagem.custoViagem(roteiro, passageiro);</span>
+<span class="fc" id="L54">        return new Viagem(id,data,roteiro,passageiro,valorCobrado);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

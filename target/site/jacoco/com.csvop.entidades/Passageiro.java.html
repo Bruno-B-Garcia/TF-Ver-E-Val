@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Passageiro.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">trabalho_final</a> &gt; <a href="index.source.html" class="el_package">com.csvop.entidades</a> &gt; <span class="el_source">Passageiro.java</span></div><h1>Passageiro.java</h1><pre class="source lang-java linenums">package com.csvop.entidades;
+
+public class Passageiro{
+	private String cpf;
+	private String nome;
+	private int pontuacaoAcumulada;
+	private int qtdadeAvaliacoes;
+
+	public static Passageiro novoPassageiro(String cpf, String nome){
+<span class="fc" id="L10">		return new Passageiro(cpf,nome,8,1);</span>
+	}
+
+	public static Passageiro passageiroExistente(String cpf, String nome, int pontuacaoAcumulada, int qtdadeAvaliacoes){
+<span class="fc" id="L14">		return new Passageiro(cpf,nome,pontuacaoAcumulada,qtdadeAvaliacoes);</span>
+	}
+
+<span class="fc" id="L17">	private Passageiro(String cpf, String nome, int pontuacaoAcumulada, int qtdadeAvaliacoes) {</span>
+<span class="fc" id="L18">		this.cpf = cpf;</span>
+<span class="fc" id="L19">		this.nome = nome;</span>
+<span class="fc" id="L20">		this.pontuacaoAcumulada = pontuacaoAcumulada;</span>
+<span class="fc" id="L21">		this.qtdadeAvaliacoes = qtdadeAvaliacoes;</span>
+<span class="fc" id="L22">	}</span>
+
+	public String getCPF() {
+<span class="fc" id="L25">		return cpf;</span>
+	}
+
+	public String getNome() {
+<span class="fc" id="L29">		return nome;</span>
+	}
+
+	public int getPontuacaoMedia() {
+<span class="fc" id="L33">		return pontuacaoAcumulada / qtdadeAvaliacoes;</span>
+	}
+
+	public void infoPontuacao(int pontuacao) {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">		if (pontuacao &gt; 0) {</span>
+<span class="fc" id="L38">			pontuacaoAcumulada += pontuacao;</span>
+<span class="fc" id="L39">			qtdadeAvaliacoes++;</span>
+		} else {
+<span class="fc" id="L41">			throw new IllegalArgumentException(&quot;Pontucao invalida !&quot;);</span>
+		}
+<span class="fc" id="L43">	}</span>
+
+	public int getPontuacaoAcumulada() {
+<span class="fc" id="L46">		return pontuacaoAcumulada;</span>
+	}
+
+	public int getQtdadeAvaliacoes() {
+<span class="fc" id="L50">		return qtdadeAvaliacoes;</span>
+	}
+
+	@Override
+	public String toString() {
+<span class="fc" id="L55">		return &quot;Passageiro [cpf=&quot; + cpf + &quot;, nome=&quot; + nome + &quot;, pontuacaoAcumulada=&quot; + pontuacaoAcumulada</span>
+				+ &quot;, qtdadeAvaliacoes=&quot; + qtdadeAvaliacoes + &quot;]&quot;;
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
